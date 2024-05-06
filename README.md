@@ -2,20 +2,22 @@
 
 欢迎来到 eto-gateway-admin 服务器管理系统的 GitHub 仓库！该系统旨在简化服务器管理任务，为您提供一个全面的解决方案，以高效管理您的服务器。
 
-## 特性
+## 特性 - 将来会有更多的特性
 
+eto-gateway-admin 服务器管理系统具有以下特性（持续实现中）：
+- **采用gin-react-admin**：eto-gateway-admin 服务器管理系统基于gin-react-admin开发，提供了一个功能强大的管理系统(后续我会开源)。
 - **用户友好的界面**：直观的界面设计使用户能够轻松地导航和执行任务。
 - **实时监控玩家**：您可以实时监控服务器上的玩家，以便及时采取行动。
-- **更安全更自由的保管存档**：通过简单的步骤，您可以轻松地备份和还原服务器数据。
+- **服务器管理**：您可以轻松地启动、停止和重启服务器，而无需使用命令行。
+- **插件管理**：您可以安装、卸载和更新服务器上的插件。
+- **PVF快捷管理**：您可以快速管理服务器的PVF并修改PVF配置。
+- **服务器日志**：您可以查看服务器日志，以便了解服务器的运行状况。
 
 ## 截图
 
 以下是 eto-gateway-admin 服务器管理系统目前的一些截图：
 
-1. <img width="1919" alt="image" src="https://github.com/yaoyaochil/pal-pannel-web/assets/49603204/b2d1aeca-8ab0-4d21-bba6-03198db44580">
-2. <img width="1919" alt="image" src="https://github.com/yaoyaochil/pal-pannel-web/assets/49603204/9a5c39b5-70cf-4434-9714-ab7391a54cdd">
-3. <img width="1918" alt="image" src="https://github.com/yaoyaochil/pal-pannel-web/assets/49603204/dd28599a-f54d-4e2a-b1f1-f2707eb97822">
-4. <img width="1919" alt="image" src="https://github.com/yaoyaochil/pal-pannel-web/assets/49603204/a53dbbde-50a0-4ab2-b944-ff37e9031f02">
+1. <img width="1919" alt="image" src="https://github.com/yaoyaochil/eto-gateway-admin/assets/49603204/a61b905d-e2c6-4f3b-a258-297f2a2a55e3">
 
 
 
@@ -53,4 +55,3 @@ npm run dev
 
 ## 许可证
 Apache-2.0 许可证 © 2021 yaoyaochil
-```
