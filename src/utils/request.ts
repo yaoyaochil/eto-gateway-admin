@@ -6,6 +6,9 @@ import axios, {
   AxiosResponse,
 } from "axios";
 import { emitter } from "./bus";
+import useUserStore, {userInfoType} from "@/store/userStore.ts";
+import {useNavigate} from "react-router-dom";
+import {message} from "@/shared/EscapeAntd.tsx";
 
 // 扩展axios请求配置
 interface CustomAxiosRequestConfig extends AxiosRequestConfig {
@@ -58,15 +61,14 @@ reqInterceptor.use(
       openLoading();
     }
 
-    const userStore = useUserStore(); // 获取用户信息
+    const userStore = useUserStore();
 
     // 请求头中添加token、用户id、请求类型
     if (config.headers) {
-      if (userStore.token) {
-        console.log(userStore.userInfo);
-        config.headers["x-token"] = userStore.token;
+      if (userStore.getState().token) {
+        config.headers["x-token"] = userStore.getState().token;
         config.headers["Content-Type"] = "application/json";
-        config.headers["x-user-id"] = userStore.userInfo?.ID;
+        config.headers["x-user-id"] = userStore.getState().userInfo.id;
       }
     }
     return config;
@@ -75,7 +77,7 @@ reqInterceptor.use(
     // TODO: 关闭loading
     closeLoading();
 
-    window.message.error(error);
+    message.error(error);
     return error;
   }
 );
@@ -90,22 +92,23 @@ resInterceptor.use(
 
     // 如果响应数据中含有new-token，则更新token
     if (response.headers["new-token"]) {
-      useUserStore().setToken(response.headers["new-token"]);
+      useUserStore().setState({ token: response.headers["new-token"] });
     }
 
     // 如果响应数据的状态码为0，则表示请求成功
     if (response.data.code === 0) {
       if (response.headers.msg) {
-        window.message.success(decodeURI(response.headers.msg));
+        message.success(decodeURI(response.headers.msg));
       }
       return response.data;
     } else {
-        window.message.error(response.data.msg);
+        message.error(response.data.msg);
         if (response.data.data && response.data.data.reload) {
-            useUserStore().setToken("");
-            useUserStore().setUserInfo({} as userInfoType);
+            useUserStore().setState({ token: "" });
+            useUserStore().setState({ userInfo: {} as userInfoType});
             localStorage.clear();
-            router.push({ path: "/login",replace: true });
+            const router = useNavigate();
+            router("/login");
         }
         return response.data.msg ? response.data : response
     }
@@ -113,30 +116,31 @@ resInterceptor.use(
   (error) => {
     // TODO: 关闭loading
     closeLoading();
+    const router = useNavigate();
 
     if (!error.response) {
-      window.message.error("网络错误");
+      message.error("网络错误");
       return;
     }
 
     switch (error.response.status) {
       case 401:
-        useUserStore().setToken("");
-        useUserStore().setUserInfo({} as userInfoType);
-        window.message.error("登录过期，请重新登录");
-        router.push("/login");
+        useUserStore().setState({ token: "" });
+        useUserStore().setState({ userInfo: {} as userInfoType});
+        message.error("登录过期，请重新登录");
+        router("/login");
         break;
       case 403:
-        window.message.error("没有权限");
+        message.error("没有权限");
         break;
       case 404:
-        window.message.error("请求资源不存在");
+        message.error("请求资源不存在");
         break;
       case 500:
-        window.message.error("服务器错误");
+        message.error("服务器错误");
         break;
       default:
-        window.message.error(error.response.data.msg);
+        message.error(error.response.data.msg);
         break;
     }
 

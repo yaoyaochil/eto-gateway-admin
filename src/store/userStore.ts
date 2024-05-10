@@ -16,9 +16,6 @@ type userStoreType = {
     token: string,
     setUserInfo: (info: userInfoType) => void,
     setToken: (val: string) => void,
-    // getUserInfo: () => void,
-    // loginIn: (form: {username: string, password: string}) => void,
-    // loginOut: () => void
 }
 
 

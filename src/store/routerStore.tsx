@@ -24,18 +24,18 @@ const routerList:RouterType[] = [
         element: "pages/layout/page.tsx",
         children: [
             {
-                index: false,
+                index: true,
                 label: "数据中心",
                 path: "dashboard",
                 icon: "PieChartOutlined",
                 element: "pages/dashboard/page.tsx"
             },
             {
-                index: true,
+                index: false,
                 label: "玩家管理",
                 path: "player",
                 icon: "TeamOutlined",
-                element: "pages/dashboard/page.tsx"
+                element: "pages/player/page.tsx"
             },
             {
                 index: false,
