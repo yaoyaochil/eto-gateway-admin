@@ -21,7 +21,7 @@ export function createIcon(icon: string | undefined): ReactNode{
 export function createComponent(component_path: string | undefined): ReactNode{
     // 使用动态import加载组件
     if (component_path) {
-        const Component = lazy(() => import(`../${component_path}`));
+        const Component = lazy(() => import(/* @vite-ignore */`../${component_path}`));
         return (
             <Suspense fallback={<LoadingPage />}>
                 <Component />

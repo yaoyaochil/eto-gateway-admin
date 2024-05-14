@@ -42,7 +42,7 @@ const routerList:RouterType[] = [
                 label: "充值管理",
                 path: "recharge",
                 icon: "ShoppingCartOutlined",
-                element: "pages/dashboard/page.tsx"
+                element: "pages/billing/page.tsx"
             },
             {
                 index: false,
@@ -59,6 +59,20 @@ const routerList:RouterType[] = [
                 children: [
                     {
                         index: false,
+                        label: "游戏道具",
+                        path: "game_item",
+                        icon: "ClusterOutlined",
+                        element: "pages/dashboard/page.tsx"
+                    },
+                    {
+                        index: false,
+                        label: "服务控制",
+                        path: "game_server_manage",
+                        icon: "ClusterOutlined",
+                        element: "pages/dashboard/page.tsx"
+                    },
+                    {
+                        index: false,
                         label: "频道列表",
                         path: "game_server_list",
                         icon: "ClusterOutlined",
@@ -66,7 +80,7 @@ const routerList:RouterType[] = [
                     },
                     {
                         index: false,
-                        label: "游戏详情",
+                        label: "频道创建",
                         path: "game_server_create",
                         icon: "ClusterOutlined",
                         element: "pages/dashboard/page.tsx"

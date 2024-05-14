@@ -6,17 +6,18 @@ import {DTaiwanAccountInfo} from "@/shared/response/DTaiwanAccountInfo.ts";
 import {getDTaiwanAccountList} from "@/api/d_taiwan/account.ts";
 import CharacterList from "@/pages/player/components/CharacterList.tsx";
 import CharacterInfo from "@/pages/player/components/CharacterInfo.tsx";
+import {useCharacterStore} from "@/store/characterStore.tsx";
 
 
 export default function PlayerPage() {
     const [page, setPage] = useState<number>(1);
-    const [pageSize, setPageSize] = useState<number>(7);
+    const [pageSize, setPageSize] = useState<number>(5);
     const [total, setTotal] = useState<number>(0);
     const [playerList, setPlayerList] = useState<DTaiwanAccountInfo[]>([]);
     const [searchValue, setSearchValue] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(false);
     const [searchType, setSearchType] = useState<string>("2");
-
+    const selectMid = useCharacterStore(state => state.selectMId);
     const getAccountList = useCallback(async () => {
         const res = await getDTaiwanAccountList({page: page, pageSize: pageSize, UID: searchType === "1" ? Number(searchValue) : 0, accountname: searchType === "2" ? searchValue : ""});
         if (res.code === 0) {
@@ -68,11 +69,11 @@ export default function PlayerPage() {
                     }  pageSizeOptions={[7,14,50,100]} showSizeChanger className={"ml-auto"}/>
                 </div>
             </div>
-            <div className={"flex-1 min-w-96 border-2 rounded-xl p-4 grid grid-cols-2 gap-4"}>
-                <div className={"col-span-1 border-2 rounded-xl hover:border-blue-400 p-3 transition-all duration-300"}>
-                    <CharacterList/>
+            <div className={"flex-1 min-w-96 grid grid-cols-2 gap-4"}>
+                <div className={"col-span-1 border-2 rounded-xl p-3 transition-all duration-300"}>
+                    <CharacterList m_id={selectMid}/>
                 </div>
-                <div className={"col-span-1 border-2 rounded-xl hover:border-blue-400 p-3 transition-all duration-300"}>
+                <div className={"col-span-1 border-2 rounded-xl p-3 transition-all duration-300"}>
                     <CharacterInfo/>
                 </div>
             </div>

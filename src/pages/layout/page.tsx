@@ -12,7 +12,7 @@ import useUserStore from "@/store/userStore.ts";
 import {message} from "@/shared/EscapeAntd.tsx";
 
 
-const { Header, Sider, Content,Footer } = Layout;
+const { Header, Sider, Content } = Layout;
 
 export default function LayoutPage() {
     const [collapsed, setCollapsed] = useState(false);

@@ -10,3 +10,11 @@ export const getDTaiwanAccountList = (data:{ page:number, pageSize:number,UID:nu
         data
     })
 }
+
+export const resetCreateLimit = (data:{UID:number}):Promise<BaseResponse<null>> => {
+    return service({
+        url: "/d_taiwan/resetLimitCreateCharacter",
+        method: "post",
+        data
+    })
+}

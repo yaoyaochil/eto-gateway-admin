@@ -102,7 +102,7 @@ resInterceptor.use(
       }
       return response.data;
     } else {
-        message.error(response.data.msg);
+        // message.error(response.data.msg);
         if (response.data.data && response.data.data.reload) {
             useUserStore().setState({ token: "" });
             useUserStore().setState({ userInfo: {} as userInfoType});

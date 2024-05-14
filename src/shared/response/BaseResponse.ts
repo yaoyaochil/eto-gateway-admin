@@ -3,7 +3,7 @@
 
 export interface BaseResponse<T> {
     code: number;
-    message: string;
+    msg: string;
     data: T;
 }
 

@@ -9,7 +9,7 @@ export default defineConfig({
     port: 5173,
     proxy: {
       '/api': {
-        target: 'http://localhost:8800',
+        target: 'http://dnf-devlop.dnf-devlop.orb.local',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, '')
       }
