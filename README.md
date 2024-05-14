@@ -16,11 +16,9 @@ eto-gateway-admin 服务器管理系统具有以下特性（持续实现中）�
 ## 截图
 
 以下是 eto-gateway-admin 服务器管理系统目前的一些截图：
-
-1. <img width="1919" alt="image" src="https://github.com/yaoyaochil/eto-gateway-admin/assets/49603204/a61b905d-e2c6-4f3b-a258-297f2a2a55e3">
-
-
-
+<img width="1919" style="border-radius:8px;margin-bottom:10px" alt="image" src="https://github.com/yaoyaochil/eto-gateway-admin/assets/49603204/9bab261f-38c9-4473-84e9-17b217b303d6">
+<img width="1919" style="border-radius:8px;margin-bottom:10px" alt="image" src="https://github.com/yaoyaochil/eto-gateway-admin/assets/49603204/26875c19-aa15-42bf-82aa-4e98c6b4f83b">
+<img width="1919" style="border-radius:8px;margin-bottom:10px" alt="image" src="https://github.com/yaoyaochil/eto-gateway-admin/assets/49603204/8cd61bad-12fe-4698-a18e-5e0c11a337de">
 
 ## 快速开始
 
