@@ -19,7 +19,7 @@ export default function LayoutPage() {
     const token = useUserStore().getState().token;
     const router = useNavigate();
     const {
-        token: { colorBgContainer, borderRadiusLG },
+        token: { colorBgContainer },
     } = theme.useToken();
 
 
@@ -84,7 +84,6 @@ export default function LayoutPage() {
                         padding: 24,
                         minHeight: 280,
                         background: colorBgContainer,
-                        borderRadius: borderRadiusLG,
                     }}
                 >
                     <div className={"h-full w-full flex flex-col"}>

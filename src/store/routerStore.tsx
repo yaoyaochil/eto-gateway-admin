@@ -69,14 +69,14 @@ const routerList:RouterType[] = [
                         label: "服务控制",
                         path: "game_server_manage",
                         icon: "ClusterOutlined",
-                        element: "pages/dashboard/page.tsx"
+                        element: "pages/service_control/page.tsx"
                     },
                     {
                         index: false,
                         label: "频道列表",
                         path: "game_server_list",
                         icon: "ClusterOutlined",
-                        element: "pages/dashboard/page.tsx"
+                        element: "pages/game_server_list/page.tsx"
                     },
                     {
                         index: false,
