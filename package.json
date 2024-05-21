@@ -13,6 +13,7 @@
     "antd": "^5.16.4",
     "autoprefixer": "^10.4.19",
     "axios": "^1.6.8",
+    "dotenv": "^16.4.5",
     "mitt": "^3.0.1",
     "nprogress": "^0.2.0",
     "postcss": "^8.4.38",
@@ -20,6 +21,8 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.23.0",
     "tailwindcss": "^3.4.3",
+    "xterm": "^5.3.0",
+    "xterm-addon-fit": "^0.8.0",
     "zustand": "^4.5.2"
   },
   "devDependencies": {

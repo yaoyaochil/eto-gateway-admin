@@ -1,7 +1,7 @@
 import {Alert, Button, Input, Pagination, PaginationProps, Select} from "antd";
 import PlayerCardComponent from "@/pages/player/components/PlayerCard.tsx";
 import {SearchOutlined} from "@ant-design/icons";
-import {useCallback, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {DTaiwanAccountInfo} from "@/shared/response/DTaiwanAccountInfo.ts";
 import {getDTaiwanAccountList} from "@/api/d_taiwan/account.ts";
 import CharacterList from "@/pages/player/components/CharacterList.tsx";
@@ -18,14 +18,14 @@ export default function PlayerPage() {
     const [loading, setLoading] = useState<boolean>(false);
     const [searchType, setSearchType] = useState<string>("2");
     const selectMid = useCharacterStore(state => state.selectMId);
-    const getAccountList = useCallback(async () => {
+    const getAccountList = async () => {
         const res = await getDTaiwanAccountList({page: page, pageSize: pageSize, UID: searchType === "1" ? Number(searchValue) : 0, accountname: searchType === "2" ? searchValue : ""});
         if (res.code === 0) {
             setPlayerList(res.data.list)
             setTotal(res.data.total)
         }
         setLoading(false);
-    }, [page, pageSize, searchType, searchValue]);
+    }
 
     // 分页
     const onPageChange: PaginationProps['onChange'] = async (page: number, pageSize: number) => {
@@ -40,8 +40,12 @@ export default function PlayerPage() {
     }
 
     useEffect(() => {
-        getAccountList()
-    }, [page, pageSize, getAccountList]);
+        async function init() {
+            setLoading(true);
+            await getAccountList()
+        }
+        init()
+    }, [page, pageSize]);
 
     return (
         <div className={"w-full h-full transition-all duration-300 flex gap-4"}>

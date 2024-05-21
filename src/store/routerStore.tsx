@@ -80,13 +80,6 @@ const routerList:RouterType[] = [
                     },
                     {
                         index: false,
-                        label: "频道创建",
-                        path: "game_server_create",
-                        icon: "ClusterOutlined",
-                        element: "pages/dashboard/page.tsx"
-                    },
-                    {
-                        index: false,
                         label: "Frida插件管理",
                         path: "frida_plugin",
                         icon: "ExperimentOutlined",
