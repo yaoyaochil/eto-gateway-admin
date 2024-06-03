@@ -1,6 +1,6 @@
 import {Button, Pagination, Table, TableProps, Tag} from "antd";
 import {TableData} from "@/pages/game_server_list/types/table.ts";
-import {useCallback, useEffect, useState} from "react";
+import {useCallback, useEffect, useRef, useState} from "react";
 import {getChannelList, getChannelStatusByIds, startChannel, stopChannel} from "@/api/game_control/channel_control.ts";
 import {message} from "@/shared/EscapeAntd.tsx";
 import {SearchOutlined} from "@ant-design/icons";
@@ -12,26 +12,36 @@ export default function Page() {
             title: "频道ID",
             dataIndex: "GCNo",
             key: "GCNo",
+            width: 100,
+            align: "center",
         },
         {
             title: "频道名称",
             dataIndex: "ChannelName",
             key: "ChannelName",
+            width: 250,
+            align: "center",
         },
         {
             title: "服务IP",
             dataIndex: "IP",
             key: "IP",
+            width: 200,
+            align: "center",
         },
         {
           title: "服务端口",
             dataIndex: "TCPPort",
             key: "TCPPort",
+            width: 100,
+            align: "center",
         },
         {
             title: "运行状态",
             dataIndex: "ChannelNo",
             key: "ChannelNo",
+            width: 150,
+            align: "center",
             render: (text) => (
                 <div>
                     {
@@ -43,6 +53,8 @@ export default function Page() {
         {
             title: "操作",
             key: "action",
+            width: 300,
+            align: "center",
             render: (text) => (
                 <div className={"flex gap-3"}>
                     <Button type={"default"} icon={<SearchOutlined/>}
@@ -67,7 +79,7 @@ export default function Page() {
             )
         },
     ]
-
+    const TableFatherContainerRef = useRef<HTMLDivElement>(null);
     const [data, setData] = useState<TableData[]>([]) // 数据
     const [page, setPage] = useState<number>(1); // 当前页
     const [pageSize, setPageSize] = useState<number>(5); // 每页显示条数
@@ -78,6 +90,7 @@ export default function Page() {
         GCNo: number;
         IsRunning: boolean;
     }[]>([]); // 当前频道状态
+    const [tableHeight, setTableHeight] = useState<number>(0); // 表格高度
 
 
     const getStatus = async (ids:number[]) => {
@@ -155,12 +168,23 @@ export default function Page() {
         setGCNo(0);
     }
 
+    const handleResize = () => {
+        if (TableFatherContainerRef.current) {
+            setTableHeight(TableFatherContainerRef.current.clientHeight - 32); // 32 是大致的 padding 和 margin 的高度
+        }
+    };
+
     useEffect(() => {
         // fetch data
         function fetchData() {
             getChannelListData();
         }
         fetchData();
+        handleResize();
+        window.addEventListener("resize", handleResize);
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        }
     }, [getChannelListData]);
 
     return (
@@ -170,8 +194,11 @@ export default function Page() {
                     message.warning("暂未开放")
                 }}>创建频道</Button>
             </div>
-            <div className={"w-full"}>
-                <Table dataSource={data} columns={dataColumns} pagination={false} rowKey={record => record.GCNo} />                <div className={"mt-4 flex justify-end"}>
+            <div className={"flex flex-col w-full h-full overflow-hidden"}>
+                <div className={"overflow-hidden flex-1 w-full"} ref={TableFatherContainerRef}>
+                    <Table scroll={{y:tableHeight}} dataSource={data} columns={dataColumns} pagination={false} rowKey={record => record.GCNo} />
+                </div>
+                <div className={"mt-4 flex justify-end"}>
                     <Pagination pageSize={pageSize} total={total} current={page} showTotal={
                         (total) => `共 ${total} 条数据`
                     } showSizeChanger pageSizeOptions={[5, 10, 20, 30, 50, 100]
