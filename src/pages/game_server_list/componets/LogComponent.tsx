@@ -1,9 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
-import { Modal, Spin } from 'antd';
-import { Terminal } from 'xterm';
-import { FitAddon } from 'xterm-addon-fit';
+import {useEffect, useRef, useState} from 'react';
+import {Button, Modal, Spin, Tag} from 'antd';
+import {Terminal} from 'xterm';
+import {FitAddon} from 'xterm-addon-fit';
 import 'xterm/css/xterm.css';
 import {message} from "@/shared/EscapeAntd.tsx";
+import {ReloadOutlined} from "@ant-design/icons";
 
 interface LogPageProps {
     GCNo: number;
@@ -20,22 +21,33 @@ export default function LogPage(props: LogPageProps) {
     const eventSourceRef = useRef<EventSource | null>(null);
     const [loading, setLoading] = useState(false);
 
-    useEffect(() => {
+
+
+    const initTerminal = () => {
+        // 如果弹窗没有打开，则不进行连接
         if (!props.open) {
             return;
         }
 
+        // 如果没有GCNo或者GCNo为0，则不进行连接
         if (!props.GCNo || props.GCNo === 0) {
             return;
         }
 
+        // 检查是否已经连接
+        if (eventSourceRef.current) {
+            // 关闭连接
+            eventSourceRef.current.close();
+        }
+
+        // ================== 连接日志服务 ==================·
         setLoading(true);
 
+        // 创建一个事件源
         const eventSource = new EventSource(`/api/channel/getChannelLog?id=${props.GCNo}`);
         eventSourceRef.current = eventSource;
 
         eventSource.onopen = () => {
-            message.success('日志服务连接成功');
         };
 
         eventSource.onmessage = (e) => {
@@ -93,8 +105,12 @@ export default function LogPage(props: LogPageProps) {
             eventSourceRef.current?.close();
             eventSourceRef.current = null;
         }
+    }
 
+    useEffect(() => {
+        initTerminal();
         return () => {
+            // 组件销毁时关闭连接
             eventSourceRef.current?.close();
         }
     }, [props.open, props.GCNo]);
@@ -102,7 +118,21 @@ export default function LogPage(props: LogPageProps) {
     return (
         <Modal
             width={"60%"}
-            title={props.title || "频道日志"}
+            title={
+                props.title
+                ||
+                <div className={'w-full leading-8'}>
+                    <div className={'w-full flex'}>
+                        <span>日志监听</span>
+                        <div className={'ml-auto mr-10'}>
+                            <Button icon={<ReloadOutlined />} type={'default'} danger onClick={() => {
+                                initTerminal();
+                            }}>刷新</Button>
+                        </div>
+                    </div>
+                    <div className={'text-gray-500 text-sm'}>频道 <Tag color={'green'}>ch{props.GCNo}</Tag> 的日志   ---  长时间未更新可以重新打开或者刷新服务</div>
+                </div>
+            }
             open={props.open}
             onCancel={() => {
                 props.onCancel && props.onCancel();
