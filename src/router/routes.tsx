@@ -2,7 +2,7 @@
 
 import {createBrowserRouter, Navigate, RouteObject, useLocation} from "react-router-dom";
 import {RouterType, useRouterStore} from "@/store/routerStore.tsx";
-import {createComponent} from "@/utils/componentLoad.tsx";
+import {createComponent} from "@/shared/componentLoad.tsx";
 
 // 获取路由
 const router = useRouterStore.getState().router;

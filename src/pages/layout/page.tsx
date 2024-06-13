@@ -12,7 +12,7 @@ import useUserStore from "@/store/userStore.ts";
 import {message} from "@/shared/EscapeAntd.tsx";
 
 
-const { Header, Sider, Content } = Layout;
+const { Header, Sider, Content,Footer } = Layout;
 
 export default function LayoutPage() {
     const [collapsed, setCollapsed] = useState(false);
@@ -56,16 +56,18 @@ export default function LayoutPage() {
             minHeight: '720px',
             overflow: 'hidden',
         }}>
-            <Sider trigger={null} collapsible collapsed={collapsed}>
+            <Sider trigger={null} collapsible collapsed={collapsed} style={{backgroundColor: '#ffffff'}}>
                 <div className="h-16 w-full p-10 flex flex-col justify-center items-center">
                     <div className={`flex items-center ${collapsed?"rounded transition-all duration-200":"rounded transition-all duration-200"}`}>
                         <SystemLogoIcon className="w-9 h-9"/>
-                        <span className={`transition-opacity duration-300 ${collapsed?"w-0 opacity-0":"opacity-100 text-white font-bold ml-2 flex-nowrap delay-200"}`}>Eto 网关</span>
+                        <span className={`text-xl transition-opacity duration-300 ${collapsed?"w-0 opacity-0":"opacity-100 font-bold ml-2 flex-nowrap delay-200"}`}>Eto 网关</span>
                     </div>
                 </div>
                 <MenuComponent />
             </Sider>
-            <Layout>
+            <Layout style={{
+                backgroundColor: colorBgContainer,
+            }}>
                 <Header style={{padding: 0, background: colorBgContainer}}>
                     <Button
                         type="text"
@@ -80,24 +82,26 @@ export default function LayoutPage() {
                 </Header>
                 <Content
                     style={{
-                        margin: '24px 16px',
-                        padding: 24,
                         minHeight: 280,
-                        background: colorBgContainer,
                     }}
                 >
-                    <div className={"h-full w-full flex flex-col"}>
+                    <div className={"h-full w-full flex flex-col bg-gray-50 p-5 pb-0"}>
                         <Outlet/>
                     </div>
                 </Content>
-                <div className={"flex justify-center items-center mt-auto mb-3"}>
-                    <span className={"text-sm text-gray-400"}>© 2024 Eto</span>
-                    <span className={"text-sm text-gray-400 ml-1 mr-1"}>All Rights Reserved</span>
-                    <a href="https://github.com/yaoyaochil/eto-gateway" target="_blank" rel="noreferrer">
-                        <GithubOutlined className={"text-gray-400"}/>
-                        <span className={"text-sm text-gray-400 ml-1"}>Github @yaoyaochil</span>
-                    </a>
-                </div>
+                <Footer style={{
+                    height: 64,
+                    background: 'rgb(249 250 251'
+                }}>
+                    <div className={"flex justify-center items-center mt-auto mb-3"}>
+                        <span className={"text-sm text-gray-400"}>© 2024 Eto</span>
+                        <span className={"text-sm text-gray-400 ml-1 mr-1"}>All Rights Reserved</span>
+                        <a href="https://github.com/yaoyaochil/eto-gateway" target="_blank" rel="noreferrer">
+                            <GithubOutlined className={"text-gray-400"}/>
+                            <span className={"text-sm text-gray-400 ml-1"}>Github @yaoyaochil</span>
+                        </a>
+                    </div>
+                </Footer>
             </Layout>
         </Layout>
     );

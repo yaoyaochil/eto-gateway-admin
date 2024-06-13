@@ -1,8 +1,9 @@
-import {useEffect, useRef, useState} from 'react';
-import {Modal, Spin} from 'antd';
+import { useEffect, useRef, useState } from 'react';
+import { Modal, Spin } from 'antd';
 import { Terminal } from 'xterm';
 import { FitAddon } from 'xterm-addon-fit';
 import 'xterm/css/xterm.css';
+import {message} from "@/shared/EscapeAntd.tsx";
 
 interface LogPageProps {
     GCNo: number;
@@ -16,9 +17,8 @@ export default function LogPage(props: LogPageProps) {
     const terminalRef = useRef<HTMLDivElement>(null);
     const terminal = useRef<Terminal | null>(null);
     const fitAddon = useRef<FitAddon | null>(null);
-    const wsRef = useRef<WebSocket | null>(null);
+    const eventSourceRef = useRef<EventSource | null>(null);
     const [loading, setLoading] = useState(false);
-
 
     useEffect(() => {
         if (!props.open) {
@@ -31,25 +31,24 @@ export default function LogPage(props: LogPageProps) {
 
         setLoading(true);
 
-        const ws = new WebSocket(`ws://${location.host}/socket/channel/getChannelLog?id=${props.GCNo}`);
-        wsRef.current = ws;
+        const eventSource = new EventSource(`/api/channel/getChannelLog?id=${props.GCNo}`);
+        eventSourceRef.current = eventSource;
 
-        ws.onopen = () => {
-            console.log("连接成功");
+        eventSource.onopen = () => {
+            message.success('日志服务连接成功');
         };
 
-        ws.onmessage = (e) => {
+        eventSource.onmessage = (e) => {
             terminal.current?.writeln(e.data);
             fitAddon.current?.fit(); // 重新计算终端大小
-            setLoading(false)
+            setLoading(false);
         };
 
-        ws.onclose = () => {
-            console.log("连接关闭");
-        };
-
-        ws.onerror = (e) => {
-            console.error("连接错误", e);
+        eventSource.onerror = (e) => {
+            message.error('日志服务连接失败');
+            setLoading(false);
+            console.error(e);
+            eventSource.close();
         };
 
         if (props.open && terminalRef.current) {
@@ -91,14 +90,13 @@ export default function LogPage(props: LogPageProps) {
             terminal.current?.dispose();
             terminal.current = null;
             fitAddon.current = null;
-            wsRef.current?.close();
-            wsRef.current = null;
+            eventSourceRef.current?.close();
+            eventSourceRef.current = null;
         }
 
         return () => {
-            wsRef.current?.close();
+            eventSourceRef.current?.close();
         }
-
     }, [props.open, props.GCNo]);
 
     return (

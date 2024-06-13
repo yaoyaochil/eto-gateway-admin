@@ -34,8 +34,9 @@ export default function MenuComponent() {
 
     return (
         <Menu
-            theme="dark"
+            theme="light"
             mode="inline"
+            style={{borderRight: 0}}
             defaultSelectedKeys={selectedKeys}
             selectedKeys={selectedKeys}
             defaultOpenKeys={openKeys}

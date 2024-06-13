@@ -118,7 +118,7 @@ export default function BillingPage() {
     }, [page, pageSize]);
 
     return (
-        <div className={"w-full p-4 flex flex-col overflow-y-scroll"}>
+        <div className={"w-full p-4 flex flex-col overflow-y-scroll bg-white rounded-xl"}>
             <BillingModal id={modalId} type={modalType} open={modalVisible} onOk={onOk} onCancel={() => {setModalVisible(false)}}/>
             <div className={"flex items-center mb-3"}>
                 <span>玩家账号:</span>

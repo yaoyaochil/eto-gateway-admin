@@ -49,7 +49,7 @@ const routerList:RouterType[] = [
                 label: "游戏邮件",
                 path: "game_mail",
                 icon: "MailOutlined",
-                element: "pages/dashboard/page.tsx"
+                element: "pages/mail/page.tsx"
             },
             {
                 index: false,
@@ -78,13 +78,6 @@ const routerList:RouterType[] = [
                         icon: "ClusterOutlined",
                         element: "pages/game_server_list/page.tsx"
                     },
-                    {
-                        index: false,
-                        label: "Frida插件管理",
-                        path: "frida_plugin",
-                        icon: "ExperimentOutlined",
-                        element: "pages/dashboard/page.tsx"
-                    }
                 ],
             }
         ]

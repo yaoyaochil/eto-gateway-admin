@@ -1,7 +1,7 @@
 import {create} from "zustand";
 import {MenuProps} from "antd";
 import {RouterType} from "@/store/routerStore.tsx";
-import {createIcon} from "@/utils/componentLoad.tsx";
+import {createIcon} from "@/shared/componentLoad.tsx";
 
 
 type MenuItem = Required<MenuProps>['items'][number];

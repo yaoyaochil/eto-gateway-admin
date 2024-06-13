@@ -3,6 +3,6 @@
 
 export default function DashboardPage() {
     return (
-        <div>Dashboard</div>
+        <div className={'bg-white h-full w-full p-5'}>Dashboard</div>
     )
 }

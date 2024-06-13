@@ -206,7 +206,7 @@ export default function Page() {
     }, []);
 
     return (
-        <div className={"p-4 w-full h-full flex flex-col gap-5"}>
+        <div className={"p-4 w-full h-full flex flex-col gap-5 bg-white rounded-xl"}>
             <div className={"w-full flex gap-2"}>
                 {
                     runService > 0 ? <Button type={"default"} danger onClick={stopService}>关闭服务</Button> : <Button type={"default"} onClick={startService}>启动服务</Button>

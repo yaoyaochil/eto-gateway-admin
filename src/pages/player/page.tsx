@@ -50,7 +50,7 @@ export default function PlayerPage() {
     return (
         <div className={"w-full h-full transition-all duration-300 flex gap-4"}>
             <div
-                className={"h-full lg:w-64 sm:w-4/12 min-w-96 border-2 rounded-xl p-5 overflow-hidden flex flex-col gap-5"}>
+                className={"h-full lg:w-64 sm:w-4/12 min-w-96 rounded-xl p-5 overflow-hidden flex flex-col gap-5 bg-white"}>
                 <Alert message="玩家列表" type="info"/>
                 <div className={"flex-1 w-full flex flex-col gap-3 overflow-hidden"}>
                     <div className={"px-3 flex gap-2 pt-2 w-full"}>
@@ -74,10 +74,10 @@ export default function PlayerPage() {
                 </div>
             </div>
             <div className={"flex-1 min-w-96 grid grid-cols-2 gap-4"}>
-                <div className={"col-span-1 border-2 rounded-xl p-3 transition-all duration-300"}>
+                <div className={"col-span-1 bg-white rounded-xl p-3 transition-all duration-300"}>
                     <CharacterList m_id={selectMid}/>
                 </div>
-                <div className={"col-span-1 border-2 rounded-xl p-3 transition-all duration-300"}>
+                <div className={"col-span-1 bg-white rounded-xl p-3 transition-all duration-300"}>
                     <CharacterInfo/>
                 </div>
             </div>

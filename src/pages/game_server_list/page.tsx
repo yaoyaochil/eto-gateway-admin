@@ -188,7 +188,7 @@ export default function Page() {
     }, [getChannelListData]);
 
     return (
-        <div className={"p-4 w-full h-full flex flex-col gap-4"}>
+        <div className={"p-4 w-full h-full flex flex-col gap-4 bg-white rounded-xl"}>
             <div className={"w-full flex gap-2"}>
                 <Button type={"primary"} onClick={()=>{
                     message.warning("暂未开放")
